@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "994948478040",
+    "project_id": "notif-efa21",
+    "storage_bucket": "notif-efa21.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:994948478040:android:1054c01ffe4807d106862d",
+        "android_client_info": {
+          "package_name": "com.example.notif"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4m_QV-v1vr3UTde9EeCkr6lwDi6v3mKk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
