@@ -115,8 +115,10 @@ class _HomePageState extends State<HomePage> {
 
     AndroidInitializationSettings androidInitializationSettings =
         const AndroidInitializationSettings('@mipmap/ic_launcher');
-    InitializationSettings initializationSettings =
-        InitializationSettings(android: androidInitializationSettings);
+    DarwinInitializationSettings iosInitialization =
+        const DarwinInitializationSettings();
+    InitializationSettings initializationSettings = InitializationSettings(
+        android: androidInitializationSettings, iOS: iosInitialization);
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
     streamSubscription =
@@ -141,8 +143,11 @@ class _HomePageState extends State<HomePage> {
       importance: Importance.max,
     );
 
+    var iOSPlatformChannelSpecifics = const DarwinNotificationDetails();
+
     var platformChannelSpecifics = NotificationDetails(
       android: androidPlatformChannelSpecifics,
+      iOS: iOSPlatformChannelSpecifics,
     );
 
     await flutterLocalNotificationsPlugin.show(
