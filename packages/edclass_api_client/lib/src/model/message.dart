@@ -21,6 +21,7 @@ enum MessageState {
   read,
 }
 
+/// message class
 @JsonSerializable(fieldRename: FieldRename.snake)
 class Message {
   /// Message constructor
@@ -61,4 +62,31 @@ class Message {
 
   /// to JSON
   Map<String, dynamic> toJson() => _$MessageToJson(this);
+}
+
+/// message request body
+@JsonSerializable(fieldRename: FieldRename.snake)
+class MessageBody {
+  /// constructor
+  const MessageBody({
+    required this.receiverId,
+    required this.content,
+    this.subject,
+  });
+
+  /// from json
+  factory MessageBody.fromJson(Map<String, dynamic> json) =>
+      _$MessageBodyFromJson(json);
+
+  /// user uuid
+  final String receiverId;
+
+  /// optional subject
+  final String? subject;
+
+  /// message content
+  final String content;
+
+  /// toJSON
+  Map<String, dynamic> toJson() => _$MessageBodyToJson(this);
 }

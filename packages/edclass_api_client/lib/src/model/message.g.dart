@@ -33,3 +33,16 @@ const _$MessageStateEnumMap = {
   MessageState.received: 'received',
   MessageState.read: 'read',
 };
+
+MessageBody _$MessageBodyFromJson(Map<String, dynamic> json) => MessageBody(
+      receiverId: json['receiver_id'] as String,
+      content: json['content'] as String,
+      subject: json['subject'] as String?,
+    );
+
+Map<String, dynamic> _$MessageBodyToJson(MessageBody instance) =>
+    <String, dynamic>{
+      'receiver_id': instance.receiverId,
+      'subject': instance.subject,
+      'content': instance.content,
+    };
