@@ -28,7 +28,7 @@ class Message {
   const Message({
     required this.id,
     required this.senderId,
-    required this.receiverId,
+    required this.receiverIds,
     required this.content,
     required this.state,
     required this.createdAt,
@@ -46,7 +46,7 @@ class Message {
   final String senderId;
 
   /// receiver / user uuid
-  final String receiverId;
+  final List<String> receiverIds;
 
   /// subject optional
   final String? subject;
@@ -69,7 +69,7 @@ class Message {
 class MessageBody {
   /// constructor
   const MessageBody({
-    required this.receiverId,
+    required this.receiverIds,
     required this.content,
     this.subject,
   });
@@ -79,7 +79,7 @@ class MessageBody {
       _$MessageBodyFromJson(json);
 
   /// user uuid
-  final String receiverId;
+  final List<String> receiverIds;
 
   /// optional subject
   final String? subject;
@@ -89,4 +89,23 @@ class MessageBody {
 
   /// toJSON
   Map<String, dynamic> toJson() => _$MessageBodyToJson(this);
+}
+
+/// update message status
+@JsonSerializable(fieldRename: FieldRename.snake)
+class UpdateMessageStateBody {
+  /// constructor
+  const UpdateMessageStateBody({
+    required this.state,
+  });
+
+  /// from json
+  factory UpdateMessageStateBody.fromJson(Map<String, dynamic> json) =>
+      _$UpdateMessageStateBodyFromJson(json);
+
+  /// next state
+  final MessageState state;
+
+  /// toJSON
+  Map<String, dynamic> toJson() => _$UpdateMessageStateBodyToJson(this);
 }

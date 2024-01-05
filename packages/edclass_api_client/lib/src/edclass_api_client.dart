@@ -101,14 +101,14 @@ class EdclassApiClient {
 
   /// parse header
   Map<String, String> _parseHeader(bool isPost, Map<String, String>? headers) {
-    final h = headers ?? {'Accept': 'application/json'};
+    final h = headers ?? {HttpHeaders.acceptHeader: 'application/json'};
 
     if (isPost) {
-      h['Content-Type'] = 'application/json; charset=utf-8';
+      h[HttpHeaders.contentTypeHeader] = 'application/json; charset=utf-8';
     }
 
     if (tokenClaim.isNotEmpty) {
-      h['Authorization'] = 'Bearer $tokenClaim';
+      h[HttpHeaders.authorizationHeader] = 'Bearer $tokenClaim';
     }
 
     return h;

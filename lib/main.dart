@@ -1,12 +1,13 @@
 import 'dart:async';
-import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:http/http.dart' as http;
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:notif/bindings/app_binding.dart';
+import 'package:notif/config/routes.dart';
+import 'package:notif/services/notification_service.dart';
 
 import 'firebase_options.dart';
 
@@ -16,15 +17,50 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 void main() async {
+  await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
+
+  await initLocalNotifications();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await FirebaseMessaging.instance.getInitialMessage();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  runApp(const MyApp());
+  runApp(GetMaterialApp(
+    initialBinding: AppBinding(),
+    getPages: appPages,
+    theme: ThemeData(
+      primarySwatch: Colors.blue,
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+    ),
+    initialRoute: Routes.home,
+    //home: HomePage(),
+  ));
 }
 
+class Root extends StatelessWidget {
+  const Root({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                //
+              },
+              child: const Text('Send Notification'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+/*
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -40,8 +76,9 @@ class MyApp extends StatelessWidget {
       home: HomePage(),
     );
   }
-}
+}*/
 
+/*
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -289,3 +326,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+*/

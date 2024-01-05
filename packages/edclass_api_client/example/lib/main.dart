@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:edclass_api_client/edclass_api_client.dart';
@@ -7,7 +8,7 @@ Future<void> main() async {
 
   try {
     var res = await apiClient.auth("hl@hl.com", "hl");
-    print('$res');
+    inspect(res);
     exit(0);
   } catch (e) {
     print(e);

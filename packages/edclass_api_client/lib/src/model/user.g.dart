@@ -11,6 +11,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       email: json['email'] as String,
       role: $enumDecode(_$UserRoleEnumMap, json['role']),
       name: json['name'] as String,
+      devices:
+          (json['devices'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
@@ -18,6 +20,7 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'email': instance.email,
       'role': _$UserRoleEnumMap[instance.role]!,
       'name': instance.name,
+      'devices': instance.devices,
     };
 
 const _$UserRoleEnumMap = {
@@ -35,6 +38,8 @@ UserWithPassword _$UserWithPasswordFromJson(Map<String, dynamic> json) =>
       role: $enumDecode(_$UserRoleEnumMap, json['role']),
       name: json['name'] as String,
       password: json['password'] as String,
+      devices:
+          (json['devices'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$UserWithPasswordToJson(UserWithPassword instance) =>
@@ -44,15 +49,5 @@ Map<String, dynamic> _$UserWithPasswordToJson(UserWithPassword instance) =>
       'role': _$UserRoleEnumMap[instance.role]!,
       'name': instance.name,
       'password': instance.password,
-    };
-
-UsersDevices _$UsersDevicesFromJson(Map<String, dynamic> json) => UsersDevices(
-      id: json['id'] as String,
-      userId: json['user_id'] as String,
-    );
-
-Map<String, dynamic> _$UsersDevicesToJson(UsersDevices instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'user_id': instance.userId,
+      'devices': instance.devices,
     };

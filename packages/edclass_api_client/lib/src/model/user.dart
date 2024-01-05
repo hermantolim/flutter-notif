@@ -30,6 +30,7 @@ class User {
     required this.email,
     required this.role,
     required this.name,
+    required this.devices,
   });
 
   ///
@@ -47,6 +48,9 @@ class User {
   /// user name
   final String name;
 
+  /// user devices
+  final List<String> devices;
+
   /// to JSON
   Map<String, dynamic> toJson() => _$UserToJson(this);
 }
@@ -61,6 +65,7 @@ class UserWithPassword {
     required this.role,
     required this.name,
     required this.password,
+    required this.devices,
   });
 
   ///
@@ -82,29 +87,9 @@ class UserWithPassword {
   /// hashed password
   final String password;
 
+  /// user devices
+  final List<String> devices;
+
   /// to JSON
   Map<String, dynamic> toJson() => _$UserWithPasswordToJson(this);
-}
-
-/// user device junction
-@JsonSerializable(fieldRename: FieldRename.snake)
-class UsersDevices {
-  /// constructor
-  const UsersDevices({
-    required this.id,
-    required this.userId,
-  });
-
-  ///
-  factory UsersDevices.fromJson(Map<String, dynamic> json) =>
-      _$UsersDevicesFromJson(json);
-
-  /// device uuid
-  final String id;
-
-  /// user owner uuid
-  final String userId;
-
-  /// to JSON
-  Map<String, dynamic> toJson() => _$UsersDevicesToJson(this);
 }
