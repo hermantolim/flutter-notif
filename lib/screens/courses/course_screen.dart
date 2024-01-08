@@ -36,7 +36,7 @@ class CourseScreen extends GetView<CourseController> {
       body: controller.obx(
         (state) {
           print('OBX state $state');
-          final courses = (state as List? ?? []) as List<Course>;
+          final courses = (state as List? ?? []) as List<CourseEnrollment>;
           return ListView.builder(
               padding: const EdgeInsets.all(8),
               itemCount: courses.length,
@@ -47,7 +47,7 @@ class CourseScreen extends GetView<CourseController> {
                 return InkWell(
                   onTap: () {
                     Get.toNamed(Routes.courseDetail,
-                        parameters: {"id": courses[index].id});
+                        parameters: {"id": courses[index].course.id});
                   },
                   child: Container(
                     color: index % 2 == 0 ? Colors.grey : Colors.white,
@@ -56,8 +56,11 @@ class CourseScreen extends GetView<CourseController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(courses[index].title),
-                          Text(courses[index].content)
+                          Text(courses[index].course.title),
+                          Text(courses[index].course.content),
+                          Text("teacher: ${courses[index].course.teacherId}"),
+                          if (user?.role == UserRole.student)
+                            Text("enrolled: ${courses[index].enrolled}")
                         ],
                       ),
                     ),

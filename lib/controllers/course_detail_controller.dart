@@ -22,11 +22,23 @@ class CourseDetailController extends GetxController with StateMixin {
 
   Future enroll(String id) async {
     try {
+      change(state, status: RxStatus.loading());
       var response = await _courseDetailApiService.enroll(id);
       if (response.statusCode == 401) {}
       if (response.statusCode == 200) {
-        change({"body": state["body"], "enrolled": true},
-            status: RxStatus.success());
+        GetCourseResponse? courseResponse = state;
+        print("GetCourseResponse $courseResponse");
+        if (courseResponse != null) {
+          change(
+            GetCourseResponse(
+              course: courseResponse.course,
+              teacher: courseResponse.teacher,
+              students: courseResponse.students,
+              enrolled: true,
+            ),
+            status: RxStatus.success(),
+          );
+        }
       } else {
         change(state, status: RxStatus.empty());
       }
@@ -44,8 +56,8 @@ class CourseDetailController extends GetxController with StateMixin {
       }
       if (response.statusCode == 200) {
         //return json.decode(response.body);
-        final body = Course.fromJson(response.body);
-        change({"body": body, "enrolled": false}, status: RxStatus.success());
+        final body = GetCourseResponse.fromJson(response.body);
+        change(body, status: RxStatus.success());
         //message.value = body;
       } else {
         //message.value = null;

@@ -35,24 +35,42 @@ class CourseDetailScreen extends GetView<CourseDetailController> {
       ),
       body: controller.obx(
         (state) {
-          final course = state['body'] as Course?;
+          final course = state as GetCourseResponse?;
           return Column(
             children: [
               Text(
-                course?.title ?? "",
+                course?.course.title ?? "",
+                style: const TextStyle(
+                  fontSize: 36,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(
+                height: 16,
               ),
               Text(
-                course?.content ?? "",
+                course?.course.content ?? "",
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(
+                height: 16,
               ),
               Container(
                 width: double.infinity,
+                padding: const EdgeInsets.all(16.0),
                 child: ElevatedButton(
-                  onPressed: () async {
-                    if (course != null) {
-                      await controller.enroll(course.id);
-                    }
-                  },
-                  child: const Text('Enroll'),
+                  onPressed: course != null && !course.enrolled
+                      ? () async => await controller.enroll(course.course.id)
+                      : null,
+                  style: ElevatedButton.styleFrom(
+                    disabledBackgroundColor: Colors.grey,
+                    disabledForegroundColor: Colors.black26,
+                  ),
+                  child: Text(
+                    course != null && course.enrolled ? 'Enrolled' : 'Enroll',
+                  ),
                 ),
               )
             ],

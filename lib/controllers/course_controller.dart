@@ -32,7 +32,7 @@ class CourseController extends GetxController with StateMixin {
         //return json.decode(response.body);
         final bodyList = response.body as List? ?? [];
         final courseList = bodyList.map((e) {
-          return Course.fromJson(e);
+          return CourseEnrollment.fromJson(e);
         }).toList();
         change(courseList, status: RxStatus.success());
       } else {
