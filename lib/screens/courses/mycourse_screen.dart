@@ -23,7 +23,7 @@ class MyCourseScreen extends GetView<MyCourseController> {
           },
         ),
         title: const Text(
-          'Courses',
+          'My Courses',
           style: TextStyle(fontWeight: FontWeight.normal, fontSize: 28),
         ),
         actions: [

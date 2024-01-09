@@ -1,6 +1,8 @@
 import 'dart:developer';
 
+import 'package:edclass_api_client/edclass_api_client.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'auth_controller.dart';
 
@@ -15,11 +17,15 @@ class RegisterController extends AuthController {
   final formPasswordFieldKey = GlobalKey<FormFieldState>();
   final confirmPasswordController = TextEditingController();
   final formConfirmPasswordFieldKey = GlobalKey<FormFieldState>();
+  final kidsController = TextEditingController();
+  final formKidsFieldKey = GlobalKey<FormFieldState>();
+  final Rx<UserRole> roleValue = UserRole.student.obs;
 
   FocusNode nameFocusNode = FocusNode();
   FocusNode emailFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
   FocusNode confirmPasswordFocusNode = FocusNode();
+  FocusNode kidsFocusNode = FocusNode();
 
   RegisterController(
     super.authenticationService,
@@ -56,6 +62,11 @@ class RegisterController extends AuthController {
         formConfirmPasswordFieldKey.currentState!.validate();
       }
     });
+    kidsFocusNode.addListener(() {
+      if (!kidsFocusNode.hasFocus) {
+        formKidsFieldKey.currentState!.validate();
+      }
+    });
   }
 
   @override
@@ -68,7 +79,8 @@ class RegisterController extends AuthController {
     passwordFocusNode.dispose();
     confirmPasswordController.dispose();
     confirmPasswordFocusNode.dispose();
-
+    kidsController.dispose();
+    kidsFocusNode.dispose();
     super.onClose();
   }
 
@@ -120,19 +132,26 @@ class RegisterController extends AuthController {
     // log('${emailController.text}, ${passwordController.text}');
     if (registerFormKey.currentState!.validate()) {
       try {
-        await registerUser(
-          emailController.text,
-          passwordController.text,
-          confirmPasswordController.text,
-          nameController.text,
+        final body = RegisterUserBody(
+          name: nameController.text.trim(),
+          email: emailController.text.trim(),
+          password: passwordController.text.trim(),
+          confirmPassword: confirmPasswordController.text.trim(),
+          role: roleValue.value,
+          students: kidsController.text
+              .split(",")
+              .map((e) => e.trim())
+              .toList(growable: false),
         );
+        print("========================= REGISTER BODY $body");
+        await registerUser(body);
 
-        loginUser(emailController.text, passwordController.text);
+        await loginUser(emailController.text, passwordController.text);
       } catch (err, _) {
         // message = 'There is an issue with the app during request the data, '
         //         'please contact admin for fixing the issues ' +
-        passwordController.clear();
-        confirmPasswordController.clear();
+        //passwordController.clear();
+        //confirmPasswordController.clear();
         rethrow;
       }
     } else {

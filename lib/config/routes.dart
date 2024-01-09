@@ -5,6 +5,7 @@ import 'package:notif/bindings/home_binding.dart';
 import 'package:notif/bindings/inbox_binding.dart';
 import 'package:notif/bindings/inbox_compose_binding.dart';
 import 'package:notif/bindings/inbox_detail_binding.dart';
+import 'package:notif/bindings/kid_binding.dart';
 import 'package:notif/bindings/login_binding.dart';
 import 'package:notif/bindings/mycourse_binding.dart';
 import 'package:notif/bindings/register_binding.dart';
@@ -19,8 +20,10 @@ import 'package:notif/screens/messages/inbox_detail_screen.dart';
 import 'package:notif/screens/messages/inbox_screen.dart';
 import 'package:notif/screens/messages/inbox_sent_screen.dart';
 import 'package:notif/screens/register/register_screen.dart';
+import 'package:notif/screens/user/kid_screen.dart';
 
 abstract class Routes {
+  static const kid = '/kid';
   static const login = '/login';
   static const register = '/register';
   static const inbox = '/inbox';
@@ -93,5 +96,11 @@ final appPages = [
       name: Routes.myCourse,
       page: () => const MyCourseScreen(),
       binding: MyCourseBinding(),
-      transition: Transition.fadeIn)
+      transition: Transition.fadeIn),
+  GetPage(
+    name: Routes.kid,
+    page: () => const KidScreen(),
+    binding: KidBinding(),
+    transition: Transition.fadeIn,
+  )
 ];

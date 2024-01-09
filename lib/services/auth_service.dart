@@ -30,16 +30,9 @@ class AuthApiService extends ApiService {
     }
   }
 
-  Future<User?> register(String email, String password, String confirmPassword,
-      String name) async {
+  Future<User?> register(RegisterUserBody body) async {
     try {
-      var body = {
-        'email': email,
-        'password': password,
-        'confirm_password': confirmPassword,
-        'name': name
-      };
-      Response<dynamic> res = await post(signUpUrl, body);
+      Response<dynamic> res = await post(signUpUrl, body.toJson());
       User user = User.fromJson(res.body);
       return user;
     } catch (e) {

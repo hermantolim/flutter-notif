@@ -65,6 +65,14 @@ class HomeScreen extends GetView<HomeController> {
                 onTap: () {
                   Get.offAllNamed(Routes.myCourse);
                 },
+              ),
+            if (user?.role == UserRole.parent)
+              ListTile(
+                title: const Text('My Kids'),
+                leading: const Icon(Icons.supervisor_account_outlined),
+                onTap: () {
+                  Get.offAllNamed(Routes.kid);
+                },
               )
           ],
         ),

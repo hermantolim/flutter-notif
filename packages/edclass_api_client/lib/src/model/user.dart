@@ -1,3 +1,4 @@
+import 'package:edclass_api_client/edclass_api_client.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user.g.dart';
@@ -92,4 +93,26 @@ class UserWithPassword {
 
   /// to JSON
   Map<String, dynamic> toJson() => _$UserWithPasswordToJson(this);
+}
+
+/// user class without password
+@JsonSerializable(fieldRename: FieldRename.snake)
+class Kid {
+  /// user constructor
+  const Kid({
+    required this.user,
+    required this.courses,
+  });
+
+  ///
+  factory Kid.fromJson(Map<String, dynamic> json) => _$KidFromJson(json);
+
+  /// user
+  final User user;
+
+  /// courses taken
+  final List<Course> courses;
+
+  /// to JSON
+  Map<String, dynamic> toJson() => _$KidToJson(this);
 }

@@ -51,3 +51,15 @@ Map<String, dynamic> _$UserWithPasswordToJson(UserWithPassword instance) =>
       'password': instance.password,
       'devices': instance.devices,
     };
+
+Kid _$KidFromJson(Map<String, dynamic> json) => Kid(
+      user: User.fromJson(json['user'] as Map<String, dynamic>),
+      courses: (json['courses'] as List<dynamic>)
+          .map((e) => Course.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$KidToJson(Kid instance) => <String, dynamic>{
+      'user': instance.user,
+      'courses': instance.courses,
+    };

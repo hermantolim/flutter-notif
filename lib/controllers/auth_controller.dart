@@ -47,14 +47,8 @@ class AuthController extends GetxController {
     }
   }
 
-  Future<void> registerUser(String email, String password,
-      String confirmPassword, String name) async {
-    final response = await _authenticationService.register(
-      email,
-      password,
-      confirmPassword,
-      name,
-    );
+  Future<void> registerUser(RegisterUserBody body) async {
+    final response = await _authenticationService.register(body);
 
     if (response == null) {
       Get.defaultDialog(
