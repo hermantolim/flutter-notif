@@ -49,3 +49,13 @@ Map<String, dynamic> _$CourseEnrollmentToJson(CourseEnrollment instance) =>
       'course': instance.course,
       'enrolled': instance.enrolled,
     };
+
+MyCourse _$MyCourseFromJson(Map<String, dynamic> json) => MyCourse(
+      course: Course.fromJson(json['course'] as Map<String, dynamic>),
+      students: json['students'] as int,
+    );
+
+Map<String, dynamic> _$MyCourseToJson(MyCourse instance) => <String, dynamic>{
+      'course': instance.course,
+      'students': instance.students,
+    };

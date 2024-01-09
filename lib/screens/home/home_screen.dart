@@ -47,7 +47,8 @@ class HomeScreen extends GetView<HomeController> {
                 // ...
               },
             ),
-            if (user?.role == UserRole.student)
+            if (user?.role == UserRole.student ||
+                user?.role == UserRole.teacher)
               ListTile(
                 title: const Text('Courses'),
                 leading: const Icon(Icons.class_outlined),
@@ -57,6 +58,14 @@ class HomeScreen extends GetView<HomeController> {
                   // ...
                 },
               ),
+            if (user?.role == UserRole.teacher)
+              ListTile(
+                title: const Text('My Courses'),
+                leading: const Icon(Icons.library_books_outlined),
+                onTap: () {
+                  Get.offAllNamed(Routes.myCourse);
+                },
+              )
           ],
         ),
       ),

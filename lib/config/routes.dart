@@ -6,10 +6,12 @@ import 'package:notif/bindings/inbox_binding.dart';
 import 'package:notif/bindings/inbox_compose_binding.dart';
 import 'package:notif/bindings/inbox_detail_binding.dart';
 import 'package:notif/bindings/login_binding.dart';
+import 'package:notif/bindings/mycourse_binding.dart';
 import 'package:notif/bindings/register_binding.dart';
 import 'package:notif/middlewares/auth_middleware.dart';
 import 'package:notif/screens/courses/course_detail_screen.dart';
 import 'package:notif/screens/courses/course_screen.dart';
+import 'package:notif/screens/courses/mycourse_screen.dart';
 import 'package:notif/screens/home/home_screen.dart';
 import 'package:notif/screens/login/login_screen.dart';
 import 'package:notif/screens/messages/inbox_compose_screen.dart';
@@ -26,6 +28,7 @@ abstract class Routes {
   static const sent = '/sent';
   static const message = '/message';
   static const course = '/course';
+  static const myCourse = '/my-course';
   static const courseDetail = '/course_detail';
   static const home = '/';
 }
@@ -85,5 +88,10 @@ final appPages = [
     page: () => const CourseDetailScreen(),
     binding: CourseDetailBinding(),
     transition: Transition.fadeIn,
-  )
+  ),
+  GetPage(
+      name: Routes.myCourse,
+      page: () => const MyCourseScreen(),
+      binding: MyCourseBinding(),
+      transition: Transition.fadeIn)
 ];

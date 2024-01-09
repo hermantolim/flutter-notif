@@ -92,3 +92,26 @@ class CourseEnrollment {
   /// to json
   Map<String, dynamic> toJson() => _$CourseEnrollmentToJson(this);
 }
+
+/// course enrollment response
+@JsonSerializable(fieldRename: FieldRename.snake)
+class MyCourse {
+  /// constructor
+  const MyCourse({
+    required this.course,
+    required this.students,
+  });
+
+  /// fromJson
+  factory MyCourse.fromJson(Map<String, dynamic> json) =>
+      _$MyCourseFromJson(json);
+
+  /// course
+  final Course course;
+
+  /// is current user enrolled
+  final int students;
+
+  /// to json
+  Map<String, dynamic> toJson() => _$MyCourseToJson(this);
+}
